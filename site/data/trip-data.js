@@ -31,7 +31,7 @@ export const tripData = {
     baseArea: "上野／御徒町",
     sourceLabel: "公開安全版",
     sourceUpdated: "2026/9/1",
-    publicNote: "行程資料、待辦與介面可離線使用；地圖與官方網站另開時需要網路。",
+    publicNote: "行程資料、待辦與介面可離線使用；地圖與官方網站是外部連結。",
     flights: [
       {
         direction: "去程",

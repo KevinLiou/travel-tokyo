@@ -71,6 +71,7 @@ test("checklist supports local custom items", async () => {
 test("public app does not contain private Notion or booking secrets", async () => {
   const publicSource = (await Promise.all(publicFiles.map((file) => readFile(new URL(file, import.meta.url), "utf8")))).join("\n");
   assert.doesNotMatch(publicSource, /app\.notion\.com|MYGIYM/i);
+  assert.doesNotMatch(publicSource, /需網路|需要網路/);
 });
 
 test("all deployable external links use explicit URLs", async () => {
@@ -95,4 +96,14 @@ test("PWA and Pages release files are present", async () => {
   assert.match(serviceWorker, /caches\.match\("\.\/index\.html"\)/);
   assert.match(workflow, /npm run build/);
   assert.match(workflow, /actions\/deploy-pages@v4/);
+});
+
+test("public page requests no indexing and crawler controls are present", async () => {
+  const index = await readFile(new URL("../site/index.html", import.meta.url), "utf8");
+  const robots = await readFile(new URL("../site/robots.txt", import.meta.url), "utf8");
+  assert.match(index, /name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex"/);
+  assert.match(index, /name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex"/);
+  assert.ok(robots.includes("User-agent: GPTBot\nDisallow: /"));
+  assert.ok(robots.includes("User-agent: Google-Extended\nDisallow: /"));
+  assert.ok(robots.includes("User-agent: OAI-SearchBot\nAllow: /"));
 });

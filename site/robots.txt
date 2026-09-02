@@ -1,0 +1,23 @@
+# The public page carries noindex metadata. Crawlers should respect it.
+User-agent: *
+Allow: /
+
+# Do not use this page for model training or AI crawling where supported.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+# Leave this crawler able to read the HTML noindex tag.
+User-agent: OAI-SearchBot
+Allow: /

@@ -22,7 +22,7 @@ function escapeHTML(value) {
 }
 
 function externalLink(url, label, className = "map-link") {
-  return `<a class="${className}" href="${escapeHTML(url)}" target="_blank" rel="noreferrer"><span>${escapeHTML(label)}</span><small>需網路</small></a>`;
+  return `<a class="${className}" href="${escapeHTML(url)}" target="_blank" rel="noreferrer"><span>${escapeHTML(label)}</span></a>`;
 }
 
 function parseRoute() {
@@ -466,7 +466,7 @@ function searchEntries() {
   }
   for (const group of tripData.meta.references) {
     for (const item of group.items) {
-      entries.push({ kind: "參考", title: item.label, meta: `旅程資訊 · ${group.title}`, detail: "外部網站，開啟時需要網路。", text: [item.label, group.title].join(" "), href: "#/info?focus=references" });
+      entries.push({ kind: "參考", title: item.label, meta: `旅程資訊 · ${group.title}`, detail: "外部網站參考。", text: [item.label, group.title].join(" "), href: "#/info?focus=references" });
     }
   }
   return entries;
@@ -527,7 +527,7 @@ function renderInfo() {
     <section class="info-section" id="flights" aria-labelledby="flights-title"><div class="section-line"><div><p class="section-label">01 / 航班</p><h2 id="flights-title">去回程</h2></div></div><div class="flight-list">${meta.flights.map((flight) => `<article class="flight-row"><div><span>${escapeHTML(flight.direction)} · ${escapeHTML(flight.date)}</span><strong>${escapeHTML(flight.flight)}</strong></div><div><strong>${escapeHTML(flight.time)}</strong><span>${escapeHTML(flight.route)}</span></div></article>`).join("")}</div></section>
     <section class="info-section" id="transit" aria-labelledby="transit-title"><div class="section-line"><div><p class="section-label">02 / 交通</p><h2 id="transit-title">票券與搭乘提示</h2></div></div><div class="transit-list">${meta.transit.map((item) => `<article class="transit-row"><div><h3>${escapeHTML(item.title)}</h3><p>${escapeHTML(item.detail)}</p></div>${externalLink(item.url, item.guide, "map-link map-link--secondary")}</article>`).join("")}</div></section>
     <section class="info-section" id="packing" aria-labelledby="packing-title"><div class="section-line"><div><p class="section-label">03 / 出發</p><h2 id="packing-title">行李與現場提醒</h2></div></div><ul class="rule-list">${meta.packingNotes.map((note) => `<li>${escapeHTML(note)}</li>`).join("")}</ul></section>
-    <section class="info-section" id="references" aria-labelledby="references-title"><div class="section-line"><div><p class="section-label">04 / 參考</p><h2 id="references-title">官方連結與地圖</h2></div><span class="section-note">預設收合 · 外部網站需網路</span></div><div class="reference-list">${meta.references.map((group) => `<details class="reference-group"><summary>${escapeHTML(group.title)}<span aria-hidden="true">＋</span></summary><ul>${group.items.map((item) => `<li>${externalLink(item.url, item.label, "map-link map-link--secondary")}</li>`).join("")}</ul></details>`).join("")}</div></section>
+    <section class="info-section" id="references" aria-labelledby="references-title"><div class="section-line"><div><p class="section-label">04 / 參考</p><h2 id="references-title">官方連結與地圖</h2></div><span class="section-note">預設收合 · 外部網站</span></div><div class="reference-list">${meta.references.map((group) => `<details class="reference-group"><summary>${escapeHTML(group.title)}<span aria-hidden="true">＋</span></summary><ul>${group.items.map((item) => `<li>${externalLink(item.url, item.label, "map-link map-link--secondary")}</li>`).join("")}</ul></details>`).join("")}</div></section>
     <p class="privacy-note"><span aria-hidden="true">●</span><span>${escapeHTML(meta.publicNote)}</span></p>`;
 }
 
@@ -685,7 +685,7 @@ window.addEventListener("keydown", (event) => {
 function setNetworkState(isOnline = navigator.onLine) {
   const target = document.querySelector("[data-network-state]");
   if (!target) return;
-  target.textContent = isOnline ? "資料可離線 · 外部連結需網路" : "離線資料可用 · 外部連結暫停";
+  target.textContent = isOnline ? "資料可離線 · 外部連結可另開" : "離線資料可用 · 外部連結暫停";
   target.classList.toggle("is-offline", !isOnline);
 }
 
