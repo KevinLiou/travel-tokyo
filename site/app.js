@@ -396,7 +396,7 @@ function renderChecklist() {
   const stats = checklistStats();
   app.innerHTML = `
     <section class="page-intro page-intro--compact">
-      <div><p class="eyebrow">裝置內保存 · 版本 ${escapeHTML(tripData.version)}</p><h1>行程 Checklist</h1><p class="page-intro__lede">攜帶物品、藥品、餐廳訂位與票券集中放。勾選與自訂項目只保存在這支裝置，不會同步到外部服務。</p></div>
+      <div><p class="eyebrow">裝置內保存 · 版本 ${escapeHTML(tripData.version)}</p><h1>行程 Checklist</h1><p class="page-intro__lede">攜帶物品、藥品、餐廳與票券集中放。勾選狀態只保存在這支裝置，不會同步到外部服務。</p></div>
       <div class="progress-block" aria-live="polite"><span>完成進度</span><strong data-check-progress>${stats.completed} / ${stats.total}</strong><div class="progress-track"><span style="--progress: ${(stats.completed / stats.total) * 100}%"></span></div><small>${stats.remaining ? `還有 ${stats.remaining} 項要處理` : "全部完成"}</small></div>
     </section>
     <section class="checklist-tools" aria-label="待辦篩選與管理">
@@ -405,17 +405,6 @@ function renderChecklist() {
         <button type="button" class="filter-button${state.checklistFilter === "open" ? " is-selected" : ""}" data-check-filter="open" aria-pressed="${state.checklistFilter === "open"}">未完成</button>
       </div>
       <button type="button" class="text-button text-button--danger" data-reset-checklist>重設所有待辦</button>
-    </section>
-    <section class="custom-checklist" aria-labelledby="custom-checklist-title">
-      <div class="section-line"><div><p class="section-label">自訂</p><h2 id="custom-checklist-title">再加一項</h2></div><span class="section-note">例如個人用品或臨時提醒</span></div>
-      <form class="custom-checklist__form" data-checklist-form>
-        <div class="custom-checklist__fields">
-          <label>項目名稱<input id="custom-checklist-label" name="label" type="text" maxlength="80" required placeholder="例如：隱形眼鏡藥水" /></label>
-          <label>分類<select id="custom-checklist-group" name="group">${tripData.checklistGroups.map((group) => `<option value="${escapeHTML(group.id)}">${escapeHTML(group.label)}</option>`).join("")}</select></label>
-        </div>
-        <label>備註（選填）<input id="custom-checklist-description" name="description" type="text" maxlength="160" placeholder="補充數量、時間或提醒" /></label>
-        <div class="custom-checklist__submit"><button class="primary-button" type="submit">加入 Checklist</button><span class="form-note" aria-live="polite" data-checklist-message></span></div>
-      </form>
     </section>
     <div class="check-groups">${tripData.checklistGroups.map(renderChecklistGroup).join("")}</div>
     <p class="storage-note"><span aria-hidden="true">⌁</span> 使用版本化 localStorage 保存；不同裝置各自獨立。</p>`;

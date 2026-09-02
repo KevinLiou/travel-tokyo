@@ -26,7 +26,7 @@ test("canonical content decisions are represented", () => {
   assert.match(d1.anchors.find((anchor) => anchor.label === "墨田水族館").kind, /票券待確認/);
   assert.equal(d3.anchors.find((anchor) => anchor.label.includes("焼肉いのうえ")).time, "20:00");
   assert.match(d4.anchors.find((anchor) => anchor.label.includes("東京 → 熱海")).time, /^14:57/);
-  assert.match(d5.summary, /MIYUKI Factory 本次取消/);
+  assert.doesNotMatch(d5.summary, /MIYUKI Factory/);
   assert.match(d5.summary, /早餐／早午餐.*二選一/);
   assert.equal(tripData.alternatives[0].id, "d2-plan-b");
 });
@@ -57,7 +57,11 @@ test("checklist has versioned initial state and local-only groups", () => {
   assert.ok(tripData.checklist.some((item) => item.id === "mask" && item.label === "口罩"));
   assert.ok(tripData.checklist.some((item) => item.id === "clothes" && item.label.includes("換洗衣物")));
   assert.ok(!tripData.checklist.some((item) => item.label === "薄外套"));
-  assert.ok(tripData.checklist.some((item) => item.id === "d5-cancel-miyuki" && item.done));
+  assert.ok(tripData.checklist.some((item) => item.id === "d1-lunch" && item.label.includes("もへじ")));
+  assert.ok(tripData.checklist.some((item) => item.id === "d4-dinner" && item.label.includes("ばんばん食堂")));
+  assert.ok(tripData.checklist.some((item) => item.id === "d5-brunch" && item.label.includes("ねぎし")));
+  assert.equal(tripData.checklist.filter((item) => item.group === "restaurants").length, 11);
+  assert.equal(tripData.checklistGroups.find((group) => group.id === "restaurants").title, "已確定的餐廳");
 });
 
 test("checklist supports local custom items", async () => {
@@ -66,12 +70,14 @@ test("checklist supports local custom items", async () => {
   assert.match(appSource, /data-checklist-form/);
   assert.match(appSource, /data-delete-check-id/);
   assert.match(appSource, /customItems: state\.customItems/);
+  assert.doesNotMatch(appSource, /再加一項/);
 });
 
 test("public app does not contain private Notion or booking secrets", async () => {
   const publicSource = (await Promise.all(publicFiles.map((file) => readFile(new URL(file, import.meta.url), "utf8")))).join("\n");
   assert.doesNotMatch(publicSource, /app\.notion\.com|MYGIYM/i);
   assert.doesNotMatch(publicSource, /需網路|需要網路/);
+  assert.doesNotMatch(publicSource, /MIYUKI Factory|兩人|2 人|2人/);
 });
 
 test("all deployable external links use explicit URLs", async () => {
