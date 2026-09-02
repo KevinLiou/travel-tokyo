@@ -1,0 +1,19 @@
+{
+  "name": "東京旅誌｜5 天 4 夜",
+  "short_name": "東京旅誌",
+  "lang": "zh-Hant",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f0e8",
+  "theme_color": "#c95d43",
+  "description": "2026 東京五天四夜旅程時間軸、待辦與旅程資訊",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# The Notion export is a local source archive. Never publish it with the app.
+/src/
+/dist/
+/node_modules/
+.DS_Store
+

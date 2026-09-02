@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f6f0e8" />
+    <meta name="description" content="2026 東京五天四夜旅程時間軸、待辦與旅程資訊" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <title>東京 5 天 4 夜｜旅誌</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../tokens.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-mast">
+      <div class="mast__meta">
+        <span>TRAVEL NOTE / 2026</span>
+        <span class="mast__network" data-network-state>資料可離線 · 外部連結需網路</span>
+      </div>
+      <div class="mast__row">
+        <a class="mast__wordmark" href="#/day/d1" aria-label="回到東京旅誌首頁">tokyo / 09</a>
+        <button class="search-trigger" type="button" data-open-search aria-label="搜尋旅程，快捷鍵 Command K">
+          <span class="search-trigger__icon" aria-hidden="true">⌕</span>
+          <span>搜尋旅程</span>
+          <kbd>⌘ K</kbd>
+        </button>
+      </div>
+      <div class="mast__rule" aria-hidden="true"></div>
+      <nav class="mast__nav" aria-label="主要導覽">
+        <a href="#/day/d1" data-nav-route="itinerary">行程</a>
+        <a href="#/checklist" data-nav-route="checklist">待辦</a>
+        <a href="#/search" data-nav-route="search">搜尋</a>
+        <a href="#/info" data-nav-route="info">旅程資訊</a>
+      </nav>
+    </header>
+
+    <main id="app" class="shell" tabindex="-1"></main>
+
+    <nav class="bottom-nav" aria-label="手機導覽">
+      <a href="#/day/d1" data-nav-route="itinerary"><span class="bottom-nav__icon" aria-hidden="true">↳</span><span>行程</span></a>
+      <a href="#/checklist" data-nav-route="checklist"><span class="bottom-nav__icon" aria-hidden="true">□</span><span>待辦</span></a>
+      <a href="#/search" data-nav-route="search"><span class="bottom-nav__icon" aria-hidden="true">⌕</span><span>搜尋</span></a>
+      <a href="#/info" data-nav-route="info"><span class="bottom-nav__icon" aria-hidden="true">i</span><span>旅程資訊</span></a>
+    </nav>
+
+    <footer class="footer">
+      <strong>東京旅誌 / 2026</strong>
+      <span>公開安全資料 · v3 · 不含訂位存取資訊</span>
+    </footer>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
